@@ -1,0 +1,200 @@
+/* ---------- Grundfarben: an einer Stelle, leicht zu ändern ---------- */
+:root {
+  --papier: #f3efe6;
+  --zettel: #fffdf7;
+  --tinte: #1f1d1a;
+  --blass: #6f6a60;
+  --linie: #d8d1c2;
+  --rot: #b8322a;      /* "Rotstift" für Akzente */
+  --gruen: #2f6b3a;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--papier);
+  color: var(--tinte);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- Kopfbereich ---------- */
+.kopf {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px 16px;
+}
+.kopf h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.6rem;
+  letter-spacing: -0.5px;
+}
+/* kleiner roter "Unterstrich" wie mit dem Stift gezogen */
+.kopf h1::after {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 4px;
+  margin-top: 4px;
+  background: var(--rot);
+  transform: rotate(-1.5deg);
+}
+.kopf p { margin: 10px 0 0; color: var(--blass); }
+
+/* ---------- Zweispaltiges Layout ---------- */
+.layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px 20px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ---------- Formular ---------- */
+.zettel {
+  background: var(--zettel);
+  border: 1px solid var(--linie);
+  padding: 22px 22px 18px;
+}
+
+label {
+  display: block;
+  margin: 16px 0 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+label:first-child { margin-top: 0; }
+label small { font-weight: 400; color: var(--blass); }
+
+input, select, textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--linie);
+  border-radius: 2px;
+  background: #fff;
+  font: inherit;
+  color: inherit;
+}
+textarea { resize: vertical; }
+#umgebung { font-family: var(--mono); font-size: 0.85rem; }
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--tinte);
+  outline-offset: -1px;
+}
+
+/* Schritte-Liste */
+.schritte { margin: 0; padding-left: 22px; }
+.schritte li { margin-bottom: 6px; }
+.schritte .zeile { display: flex; gap: 6px; }
+.schritte .weg {
+  flex: 0 0 34px;
+  border: 1px solid var(--linie);
+  background: none;
+  color: var(--blass);
+  cursor: pointer;
+}
+.schritte .weg:hover { color: var(--rot); border-color: var(--rot); }
+
+/* ---------- Knöpfe ---------- */
+button { font: inherit; cursor: pointer; }
+
+.knopf {
+  padding: 8px 18px;
+  background: var(--tinte);
+  color: var(--zettel);
+  border: none;
+  border-radius: 2px;
+}
+.knopf:hover { background: #000; }
+.knopf.ok { background: var(--gruen); }
+
+.knopf-klein {
+  margin-top: 4px;
+  padding: 4px 10px;
+  background: none;
+  border: 1px dashed var(--blass);
+  color: var(--blass);
+}
+.knopf-klein:hover { color: var(--tinte); border-color: var(--tinte); }
+
+.knopf-leise {
+  margin-top: 22px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--blass);
+  text-decoration: underline;
+  font-size: 0.85rem;
+}
+.knopf-leise:hover { color: var(--rot); }
+
+/* ---------- Vorschau ---------- */
+.vorschau { position: sticky; top: 16px; }
+
+.leiste {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.umschalter { display: flex; border: 1px solid var(--tinte); }
+.umschalter button {
+  padding: 6px 12px;
+  background: none;
+  border: none;
+  color: var(--tinte);
+  font-size: 0.85rem;
+}
+.umschalter button + button { border-left: 1px solid var(--tinte); }
+.umschalter button.aktiv { background: var(--tinte); color: var(--zettel); }
+
+#ausgabe {
+  margin: 0;
+  min-height: 300px;
+  max-height: 60vh;
+  overflow: auto;
+  padding: 18px;
+  background: #24221f;
+  color: #ece6d8;
+  font: 0.85rem/1.6 var(--mono);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ---------- Qualitäts-Check ---------- */
+.pruefung { margin-top: 18px; }
+.pruefung h2 {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--blass);
+}
+#hinweise { margin: 0; padding: 0; list-style: none; font-size: 0.9rem; }
+#hinweise li { padding: 3px 0 3px 20px; position: relative; }
+#hinweise li::before { position: absolute; left: 0; font-weight: 700; }
+#hinweise li.warnung::before { content: "!"; color: var(--rot); left: 5px; }
+#hinweise li.gut::before { content: "✓"; color: var(--gruen); }
+
+/* ---------- Fußzeile ---------- */
+.fuss {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 30px;
+  font-size: 0.8rem;
+  color: var(--blass);
+}
+
+/* ---------- Handy: alles untereinander ---------- */
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+  .vorschau { position: static; }
+  .kopf h1 { font-size: 2rem; }
+}

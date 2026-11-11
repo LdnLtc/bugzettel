@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bugzettel – Bug-Reports in 2 Minuten</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="kopf">
+    <h1>Bugzettel</h1>
+    <p>Fehler gefunden? Hier aufschreiben, rechts kopieren, ins Ticket einfügen. Fertig.</p>
+  </header>
+
+  <main class="layout">
+
+    <!-- LINKS: Eingabe -->
+    <form id="formular" class="zettel" autocomplete="off">
+
+      <label for="titel">Titel</label>
+      <input id="titel" type="text" placeholder="z.B. Login-Button reagiert nicht nach falschem Passwort">
+
+      <label for="schwere">Schweregrad</label>
+      <select id="schwere">
+        <option value="Kritisch">Kritisch – App unbenutzbar / Datenverlust</option>
+        <option value="Hoch">Hoch – Hauptfunktion kaputt</option>
+        <option value="Mittel" selected>Mittel – stört, aber es gibt einen Workaround</option>
+        <option value="Niedrig">Niedrig – Schönheitsfehler</option>
+      </select>
+
+      <label>Schritte zum Reproduzieren</label>
+      <ol id="schritte" class="schritte"></ol>
+      <button type="button" id="schritt-neu" class="knopf-klein">+ Schritt</button>
+
+      <label for="erwartet">Erwartetes Ergebnis</label>
+      <textarea id="erwartet" rows="2" placeholder="Was hätte passieren sollen?"></textarea>
+
+      <label for="tatsaechlich">Tatsächliches Ergebnis</label>
+      <textarea id="tatsaechlich" rows="2" placeholder="Was ist wirklich passiert?"></textarea>
+
+      <label for="umgebung">Umgebung <small>(automatisch erkannt, anpassbar)</small></label>
+      <textarea id="umgebung" rows="6"></textarea>
+
+      <label for="notizen">Notizen <small>(optional)</small></label>
+      <textarea id="notizen" rows="2" placeholder="Logs, Häufigkeit, Screenshot-Name …"></textarea>
+
+      <button type="button" id="leeren" class="knopf-leise">Alles leeren</button>
+    </form>
+
+    <!-- RECHTS: Vorschau -->
+    <section class="vorschau">
+      <div class="leiste">
+        <div class="umschalter" role="group" aria-label="Format">
+          <button type="button" data-format="markdown" class="aktiv">Markdown</button>
+          <button type="button" data-format="jira">Jira</button>
+          <button type="button" data-format="text">Text</button>
+        </div>
+        <button type="button" id="kopieren" class="knopf">Kopieren</button>
+      </div>
+
+      <pre id="ausgabe"></pre>
+
+      <div class="pruefung">
+        <h2>Check</h2>
+        <ul id="hinweise"></ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="fuss">
+
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
